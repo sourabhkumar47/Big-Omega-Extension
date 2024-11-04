@@ -7,7 +7,6 @@
 		"@testing-library/jest-dom": "^5.11.5",
 		"@testing-library/react": "^11.1.1",
 		"@testing-library/user-event": "^12.2.0",
-		"bestzip": "^2.2.1",
 		"react": "^18.1.0",
 		"react-dom": "^18.1.0",
 		"react-scripts": "^5.0.1",
@@ -15,14 +14,14 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build:prod": "export INLINE_RUNTIME_CHUNK=false && react-scripts build && npm run zip-build && npm run move-files",
+		"build:prod": "cross-env INLINE_RUNTIME_CHUNK=false react-scripts build && npm run zip-build && npm run move-files",
 		"zip-build": "bestzip big-omega-extension.zip build/",
-		"move-files": "cp leetcode-live.zip ../webapp/public",
+		"move-files": "copy leetcode-live.zip ..\\webapp\\public",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"build": "export INLINE_RUNTIME_CHUNK=false && node ./build-rewired.js && npm run clean && npm run move-index && npm run zip-build",
-		"clean": "cd build && mv static/js/*.js big-omega-tools.js && mv static/css/*.css big-omega-tools.css && rm -r static",
-		"move-index": "cp public/index.html build/index.html"
+		"build": "cross-env INLINE_RUNTIME_CHUNK=false node ./build-rewired.js && npm run clean && npm run move-index && npm run zip-build",
+		"clean": "cd build && move static\\js\\*.js big-omega-tools.js && move static\\css\\*.css big-omega-tools.css && rmdir /s /q static",
+		"move-index": "copy public\\index.html build\\index.html"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -43,6 +42,8 @@
 		]
 	},
 	"devDependencies": {
+		"bestzip": "^2.2.1",
+		"cross-env": "^7.0.3",
 		"env-cmd": "^10.1.0",
 		"rewire": "^5.0.0",
 		"sass": "^1.52.0"
